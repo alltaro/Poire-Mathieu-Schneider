@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <title>jeu de cartes</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <h1>Additions et multiplications de cartes</h1>
+    </header>
+
+    <article>
+      <div class="regle">
+        <h2>Règles du jeu</h2>
+        <!-- ... (votre contenu) ... -->
+      </div>
+      <p id="help"></p>
+      <div class="imgs">
+        <img id="img0" src="" width="32" height="64" alt="de" />
+        <img id="img1" src="" width="32" height="64" alt="de" />
+        <img id="img2" src="" width="32" height="64" alt="de" />
+        <img id="img3" src="" width="32" height="64" alt="de" />
+      </div>
+      <p id="help"></p>
+      <p>Entrez le résultat :</p>
+      <input id="resultat" type="text" />
+
+      <button id="verifier" type="button">Vérifier</button>
+
+      <p class="resultats"></p>
+    </article>
+    <script>
+      $(document).ready(function () {
+        const img1 = document.getElementById("img1");
+        const img2 = document.getElementById("img2");
+        const img3 = document.getElementById("img3");
+
+        async function getImageFiles(imagesDir) {
+          try {
+            const files = await $.ajax({
+              url: imagesDir,
+              method: "GET",
+              dataType: "html",
+            });
+
+            const fileNames = $(files)
+              .find('a:contains(".jpg")')
+              .map(function () {
+                return $(this).attr("href");
+              })
+              .get();
+
+            return fileNames;
+          } catch (error) {
+            console.error(
+              "Erreur lors de la récupération des fichiers :",
+              error
+            );
+            return [];
+          }
+        }
+
+        async function loadRandomImage(img) {
+          const dir = "./scripts/play_cards/";
+          const files = await getImageFiles(dir);
+          document.getElementById("help").innerHTML = "slt";
+
+          if (files.length > 0) {
+            const randomIndex = Math.floor(Math.random() * files.length);
+            const randomFile = dir + files[randomIndex];
+            img.src = randomFile;
+          } else {
+            console.error("Aucun fichier trouvé dans le dossier.");
+          }
+        }
+
+        document.getElementById("help").innerHTML = "Salut";
+        loadRandomImage(img3);
+        document.getElementById("help").innerHTML = " ";
+
+        $("#verifier").on("click", function () {
+          // Ajoutez ici le code pour vérifier la réponse et afficher le résultat
+          const resultat = $("#resultat").val();
+          // Faites quelque chose avec la valeur de résultat
+        });
+      });
+    </script>
+  </body>
+</html>

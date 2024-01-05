@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <title>Jeu de cartes</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link href="./styles/jeu.css" rel="stylesheet" />
+    <link href="./styles/jeu2.css" rel="stylesheet" />
   </head>
 
   <body>
@@ -45,10 +45,11 @@
       <p>Entrez le résultat :</p>
       <form id="formulaire_jeu">
         <input id="resultat" type="text" />
-        <button id="btn" type="button">Vérifier</button>
+        <button id="verifier" type="button">Vérifier</button>
       </form>
       <p class="resultats"></p>
     </article>
+    <!-- ... (your HTML code remains unchanged) ... -->
 
     <script>
       $(document).ready(function () {
@@ -154,7 +155,7 @@
             resultat += produit(image_source0[element]);
             console.log(resultat);
           }
-          $("#btn").on("click", function () {
+          $("#verifier").on("click", function () {
             const resultatSaisi = $("#resultat").val();
             if (parseInt(resultatSaisi) === resultat) {
               $(".resultats").html("Bonne réponse !");
@@ -164,7 +165,7 @@
           });
         }
         function loose() {
-          $("#btn").prop("disabled", true);
+          $("#verifier").prop("disabled", true);
           $("#help").HTML = "Echec ! Essayez à nouveau." + "<br>";
           bouton_rejouer = document.createElement("button", {
             id: "bouton_rejouer  ",
@@ -180,7 +181,7 @@
           resultat = 0;
         }
         function resume() {
-          $("#btn").prop("disabled", false);
+          $("#verifier").prop("disabled", false);
           $("#help").empty();
           bouton_rejouer.parentNode.removeChild(bouton_rejouer);
         }
@@ -215,7 +216,7 @@
             check_();
             return false;
           });
-        document.getElementById("btn").addEventListener("click", check_);
+        document.getElementById("verifier").addEventListener("click", check_);
         play();
       });
     </script>

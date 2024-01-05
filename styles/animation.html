@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Animation de carte de joker</title>
+ <style>
+    .joker {
+      position: relative;
+      width: 150px;
+      height: 200px;
+      background-color: black;
+      color: white;
+      font-size: 14px;
+      padding: 10px;
+      border-radius: 5px;
+    }
+    .smile {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50%;
+      height: 50%;
+      background: url('https://www.kasandbox.org/programming-images/faces/happy.png') no-repeat;
+      background-size: cover;
+      transform: rotate(0deg);
+    }
+ </style>
+</head>
+<body onload="startAnimation()">
+ <div class="joker">
+    <div class="smile"></div>
+ </div>
+ <script src="joker.js"></script>
+</body>
+</html>
