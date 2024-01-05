@@ -41,12 +41,8 @@
         <img id="img2" src="" width="150" height="300" alt="de" />
         <img id="img3" src="" width="150" height="300" alt="de" />
       </div>
-      <p id="help"></p>
-      <p>Entrez le résultat :</p>
-      <form id="formulaire_jeu">
-        <input id="resultat" type="text" />
-        <button id="btn" type="button">Vérifier</button>
-      </form>
+      <p id="enter">Entrez le résultat :</p>
+      <form id="formulaire_jeu"></form>
       <p class="resultats"></p>
     </article>
 
@@ -154,59 +150,71 @@
             resultat += produit(image_source0[element]);
             console.log(resultat);
           }
-          $("#btn").on("click", function () {
-            const resultatSaisi = $("#resultat").val();
-            if (parseInt(resultatSaisi) === resultat) {
-              $(".resultats").html("Bonne réponse !");
-            } else {
-              $(".resultats").html("Mauvaise réponse. Essayez à nouveau.");
-            }
-          });
         }
         function loose() {
-          $("#btn").prop("disabled", true);
-          $("#help").HTML = "Echec ! Essayez à nouveau." + "<br>";
-          bouton_rejouer = document.createElement("button", {
-            id: "bouton_rejouer  ",
-          });
+          $("#enter").empty();
+          btn.parentNode.removeChild(btn);
+          input.parentNode.removeChild(input);
+          $(".resultats").html("Perdu ! Essayez à nouveau." + "<br>");
+          bouton_rejouer = document.createElement("button");
           bouton_rejouer.innerHTML = "Rejouer";
-          body = document.querySelector("body");
-          body.appendChild(bouton_rejouer);
-          bouton_rejouer.addEventListener("click", play);
+          bouton_rejouer.setAttribute("id", "bouton_rejouer");
+          article = document.querySelector("article");
+          article.appendChild(bouton_rejouer);
+          bouton_rejouer.addEventListener("click", resume);
         }
         function set_up() {
+          input = document.createElement("input");
+          input.setAttribute("id", "resultat");
+          input.setAttribute("type", "text");
+          formulaire_jeu = document.querySelector("#formulaire_jeu");
+          formulaire_jeu.appendChild(input);
+          btn = document.createElement("button");
+          btn.setAttribute("id", "btn");
+          btn.setAttribute("class", "button");
+          btn.innerHTML = "Vérifier";
+          formulaire_jeu.appendChild(btn);
           count_check = 0;
           image_source0 = [];
           resultat = 0;
         }
+        function win() {
+          btn.parentNode.removeChild(btn);
+          bouton_rejouer = document.createElement("button");
+          bouton_rejouer.innerHTML = "Rejouer";
+          bouton_rejouer.setAttribute("id", "bouton_rejouer");
+          article = document.querySelector("article");
+          article.appendChild(bouton_rejouer);
+          bouton_rejouer.addEventListener("click", function () {
+            input.parentNode.removeChild(input);
+          }); 
+          bouton_rejouer.addEventListener("click", resume);
+        }
         function resume() {
-          $("#btn").prop("disabled", false);
-          $("#help").empty();
+          $("#enter").html("Entrez le résultat :");
+          $(".resultats").empty();
           bouton_rejouer.parentNode.removeChild(bouton_rejouer);
+          play();
         }
         function play() {
-          if (already_played == true) {
-            resume();
-          }
-          already_played = true;
           set_up();
           run();
         }
         function check_() {
           if (count_check == 8) {
+            loose();
+            $(".resultats").html("Perdu ! Essayez à nouveau." + "<br>");
             return;
           }
           console.log(count_check);
           const resultatSaisi = $("#resultat").val();
           if (parseInt(resultatSaisi) === resultat) {
             $(".resultats").html("Bonne réponse !");
+            win();
           } else {
             $(".resultats").html("Mauvaise réponse. Essayez à nouveau.");
           }
           count_check++;
-          if (count_check == 8) {
-            loose();
-          }
         }
         document
           .getElementById("formulaire_jeu")
@@ -215,7 +223,6 @@
             check_();
             return false;
           });
-        document.getElementById("btn").addEventListener("click", check_);
         play();
       });
     </script>

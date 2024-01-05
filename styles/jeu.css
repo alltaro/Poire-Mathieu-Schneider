@@ -10,27 +10,21 @@ body {
 
 p.header {
   text-align: center;
-  display: inline flex;
+  display: inline-flex; /* "inline flex" corrected to "inline-flex" */
   color: #fff;
   background-color: #00c;
   border: 2px solid blue;
   border-radius: 5px;
   padding: 5px 10px;
   align-items: center;
+  line-height: 1; /* Adjusted line-height value */
 }
+
 article {
   background-color: white;
   margin: 20px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-p.header {
-  text-align: center;
-  display: inline flex;
-  border-radius: 5px;
-  padding: 5px 10px;
-  align-items: center;
-  line-height: 5px;
 }
 
 h1 {
@@ -61,6 +55,11 @@ a:hover {
   background: #00c;
 }
 
+#css_teach:hover {
+  color: rgb(30, 30, 32);
+  transition: all 1.5s ease;
+}
+
 .imgs {
   width: 100%;
 }
@@ -68,36 +67,51 @@ a:hover {
 #nombre {
   color: #000000;
 }
-#btn {
+
+#btn, #bouton_rejouer {
   padding: 8px 15px;
   background-color: #333;
+  backface-visibility: hidden;
   color: white;
   border: none;
   position: relative;
   display: inline-block;
   cursor: pointer;
   border-radius: 5px;
+  z-index: 2;
   font-size: 16px;
   margin-top: 20px;
+  transition: all 1.5s ease;
 }
-#btn::after {
+
+#btn:hover, #bouton_rejouer:hover {
+  color: rgb(30, 30, 32);
+  background-color: transparent;
+  transition: all 1.5s ease;
+  z-index: 2;
+}
+
+#btn::after, #bouton_rejouer::after {
   border-radius: 5px;
   font-size: 16px;
   content: "";
   color: lightblue;
   text-decoration: none;
-  background-color: transparent;
+  background-color: lightblue;
   border-color: #1d1f21;
-  z-index: 2;
-  position: absolute;
-  transition: all 2s ease;
+  position: relative;
+  transition: all 1.5s ease;
   width: 0%;
   top: 49%;
   left: 50%;
   height: 100%;
   transform: translate(-50%, -50%);
 }
-#btn:hover::after {
+
+#btn:hover::after, #bouton_rejouer:hover::after {
   background-color: lightblue;
+  position: absolute; /* "position:static;" corrected to "position: static;" */
   width: 100%;
+  transition: all 1.5s ease;
+  z-index: -2;
 }
