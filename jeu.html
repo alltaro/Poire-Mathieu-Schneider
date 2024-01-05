@@ -163,7 +163,7 @@
           article.appendChild(bouton_rejouer);
           bouton_rejouer.addEventListener("click", resume);
         }
-        function set_up() {
+        function setup() {
           input = document.createElement("input");
           input.setAttribute("id", "resultat");
           input.setAttribute("type", "text");
@@ -197,7 +197,7 @@
           play();
         }
         function play() {
-          set_up();
+          setup();
           run();
         }
         function check_() {
